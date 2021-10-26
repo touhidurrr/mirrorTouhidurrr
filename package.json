@@ -1,0 +1,34 @@
+{
+  "name": "mirrortouhidurrr",
+  "version": "0.0.1",
+  "description": "A WebProxy built with Cloudflare Workers",
+  "main": "WebProxy.js",
+  "scripts": {
+    "prettier": "npx prettier --write WebProxy.js",
+    "update": "node scripts/update.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/touhidurrr/mirrorTouhidurrr.git"
+  },
+  "keywords": [
+    "Cloudflare",
+    "Workers",
+    "Pages",
+    "WebProxy",
+    "Javascript",
+    "v8",
+    "RegExp"
+  ],
+  "author": "Md. Touhidur Rahman",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/touhidurrr/mirrorTouhidurrr/issues"
+  },
+  "homepage": "https://github.com/touhidurrr/mirrorTouhidurrr#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "dotenv": "^10.0.0",
+    "prettier": "^2.4.1"
+  }
+}

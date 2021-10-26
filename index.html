@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <title>mirrorTouhidurrr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="touhidurrr" />
+    <meta name="author" content="Md. Touhidur Rahman" />
+    <script src="js/three.min.js"></script>
+    <script src="js/vanta.net.min.js"></script>
+    <style>
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        position: relative;
+        color: #1de9b6;
+      }
+      button,
+      input {
+        padding: 2%;
+        margin: 0;
+        border: none;
+        border-radius: 5px;
+        color: black;
+      }
+      input {
+        background: #afb42b;
+      }
+      button {
+        background: #ff8f00;
+      }
+    </style>
+    <script>
+      mirror = 'https://mirror.touhidur.xyz/';
+      function go() {
+        url = document.getElementById('url').value;
+        if (/^\s*https?:\/\//.test(url)) {
+          window.location.href = url.replace(/^\s*https?:\/\//, mirror);
+        } else if (url.includes('.')) {
+          window.location.href = mirror + url;
+        } else {
+          document.getElementById('error').innerHTML =
+            '<small>Unrecognized URL format!</small>';
+        }
+      }
+    </script>
+  </head>
+  <body align="center">
+    <br /><br /><br /><br /><br /><br /><br /><br /><br />
+    <h3>mirrorTouhidurrr</h3>
+    <h4>a WebProxy built with Cloudflare Workers</h4>
+    <table align="center">
+      <tr>
+        <input type="url" id="url" placeholder="https://example.com/" />&nbsp
+        <button onclick="go()">go</button>
+      </tr>
+      <tr style="color: lime" id="error"></tr>
+    </table>
+    <script>
+      VANTA.NET({
+        el: 'body',
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.0,
+        minWidth: 200.0,
+        scale: 1.0,
+        scaleMobile: 1.0,
+      });
+    </script>
+  </body>
+</html>

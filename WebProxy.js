@@ -73,7 +73,7 @@ async function handleRequest(req) {
         txt = txt.replace(/https?:\\?\/\\?\/(\w(\.|-|))+/g, m => {
           if (m.includes(hostEnd)) {
             if (m.includes('\\/'))
-              '\\/' + m.split(/\\?\//).slice(-1);
+              return '\\/' + m.split(/\\?\//).slice(-1);
             return '/' + m.split('/').slice(-1);
           } else return m;
         });

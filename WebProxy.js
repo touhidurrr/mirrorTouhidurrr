@@ -14,7 +14,7 @@ async function handleRequest(req) {
     return new URL('https://' + slices.join('/'));
   })();
 
-  return new Response(JSON.stringify(url, null, 2));
+  return new Response(JSON.stringify({url: url.href, host: url.host, path: url.pathname}, null, 2));
 
   if (url.host.length < 3)
     return new Response('Request too Short!', { status: 404 });

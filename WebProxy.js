@@ -11,7 +11,7 @@ async function handleRequest(req) {
     const { host, pathname } = new URL(req.url);
     let slices = pathname.split('/');
     while (slices[0] == host) slices.shift();
-    return new URL('https://' + slices.join('/'));
+    return new URL('https://' + slices.filter(e => e).join('/'));
   })();
 
   return new Response(JSON.stringify({url: url.href, host: url.host, path: url.pathname}, null, 2));

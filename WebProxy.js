@@ -65,6 +65,7 @@ async function handleRequest(req) {
           } else return m;
         });
         txt = txt.replace(/(href|src)="[^#][^":]*"/g, m => {
+          m = m.slice(m.indexOf('"'), -1);
           return 'https://mirror.touhidur.xyz/' + host + '/' + absolute(m);
         });
         data = new Response(txt, {

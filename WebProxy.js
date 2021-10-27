@@ -7,7 +7,12 @@ addEventListener('fetch', event => {
 });
 
 async function handleRequest(req) {
-  const url = new URL(req.url.replaceAll('mirror.touhidur.xyz/', ''));
+  const url = (() => {
+    const { host, path } = new URL(req.url);
+    let slices = path.split('/');
+    while (slices[0] == host) slices.shift();
+    return new URL('https://' + slices.join('/'));
+  })();
 
   if (url.host.length < 3)
     return new Response('Request too Short!', { status: 404 });
@@ -60,8 +65,8 @@ async function handleRequest(req) {
         txt = txt.replace(/https?:\\?\/\\?\/(\w(\.|-|))+/g, m => {
           if (m.includes(hostEnd)) {
             if (m.includes('\\/'))
-              'https:\\/\\/mirror.touhidur.xyz\\/' + m.split('/').slice(-1)[0];
-            return 'https://mirror.touhidur.xyz/' + m.split('/').slice(-1)[0];
+              '\\/' + m.split('/').slice(-1)[0];
+            return '/' + m.split('/').slice(-1)[0];
           } else return m;
         });
         txt = txt.replace(/(href|src)="[^#][^":]*"/g, m => {

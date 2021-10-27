@@ -65,6 +65,7 @@ async function handleRequest(req) {
           } else return m;
         });
         txt = txt.replace(/(?<=((href|src)=")).[^ ]+(?=")/g, m => {
+          if (m.startsWith('#') || m.includes(':')) return m;
           var re = /^https?:\\?\/\\?\//;
           if (re.test(m)) return m;
           if (m.includes('\\'))

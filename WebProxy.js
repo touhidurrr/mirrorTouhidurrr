@@ -7,20 +7,21 @@ addEventListener('fetch', event => {
 });
 
 async function handleRequest(req) {
-  const url = (() => {
+  const { url, host, path } = (() => {
     const { host, pathname } = new URL(req.url);
     let slices = pathname.split('/');
     while (!slices[0] || slices[0] == host) slices.shift();
-    return new URL('https://' + slices.join('/'));
+    return {
+      url: 'https://' + slices.join('/'),
+      host: slices.shift(),
+      path: slices.join('/')
+    };
   })();
 
-  return new Response(JSON.stringify({url: url.href, host: url.host, path: url.pathname}, null, 2));
-
-  if (url.host.length < 3)
+  if (host.length < 3)
     return new Response('Request too Short!', { status: 404 });
 
-  const host = url.host;
-  fetch('https://web.archive.org/save/' + url.href);
+  fetch('https://web.archive.org/save/' + url);
 
   var reqObj = {
     headers: req.headers,
@@ -31,7 +32,7 @@ async function handleRequest(req) {
   if (req.cf) reqObj.cf = req.cf;
   if (req.body) reqObj.body = req.body;
 
-  var data = await fetch(url.href, reqObj);
+  var data = await fetch(url, reqObj);
 
   try {
     var ct = await data.headers.get('content-type');
@@ -46,7 +47,7 @@ async function handleRequest(req) {
   }
 
   if (b) {
-    var pathSplit = url.pathname.split('/');
+    var pathSplit = path.split('/');
 
     function absolute(rel) {
       var st = pathSplit;

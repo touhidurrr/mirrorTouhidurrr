@@ -66,7 +66,8 @@ async function handleRequest(req) {
         });
         txt = txt.replace(/(href|src)="[^#][^":]*"/g, m => {
           const i = m.indexOf('"') + 1;
-          return `${m.slice(0,i)}https://mirror.touhidur.xyz/${host}/${absolute(m.slice(i,-1))}"`;
+          if (m[i] == '/') return `${m.slice(0,i)}/${host}/${m.slice(i)}`;
+          return `${m.slice(0,i)}/${host}/${absolute(m.slice(i))}`;
         });
         data = new Response(txt, {
           status: data.status,

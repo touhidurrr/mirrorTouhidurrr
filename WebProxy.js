@@ -8,8 +8,8 @@ addEventListener('fetch', event => {
 
 async function handleRequest(req) {
   const url = (() => {
-    const { host, path } = new URL(req.url);
-    let slices = path.split('/');
+    const { host, pathname } = new URL(req.url);
+    let slices = pathname.split('/');
     while (slices[0] == host) slices.shift();
     return new URL('https://' + slices.join('/'));
   })();

@@ -69,7 +69,7 @@ async function handleRequest(req) {
           if (re.test(m)) return m;
           if (m.includes('\\'))
             return 'https:\\/\\/mirror.touhidur.xyz\\/' + host + '\\/' + m;
-          else return 'https://mirror.touhidur.xyz/' + host + '/' + absolute(m);
+          return 'https://mirror.touhidur.xyz/' + host + '/' + absolute(m);
         });
         data = new Response(txt, {
           status: data.status,

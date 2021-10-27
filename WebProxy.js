@@ -65,8 +65,8 @@ async function handleRequest(req) {
           } else return m;
         });
         txt = txt.replace(/(href|src)="[^#][^":]*"/g, m => {
-          m = m.slice(m.indexOf('"'), -1);
-          return 'https://mirror.touhidur.xyz/' + host + '/' + absolute(m);
+          const i = m.indexOf('"') + 1;
+          return `${m.slice(0,i)}https://mirror.touhidur.xyz/${host}/${absolute(m.slice(i,-1))}"`;
         });
         data = new Response(txt, {
           status: data.status,

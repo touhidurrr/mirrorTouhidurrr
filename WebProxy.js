@@ -64,12 +64,7 @@ async function handleRequest(req) {
             return 'https://mirror.touhidur.xyz/' + m.split('/').slice(-1)[0];
           } else return m;
         });
-        txt = txt.replace(/(?<=((href|src)=")).[^ ]+(?=")/g, m => {
-          if (m.startsWith('#') || m.includes(':')) return m;
-          var re = /^https?:\\?\/\\?\//;
-          if (re.test(m)) return m;
-          if (m.includes('\\'))
-            return 'https:\\/\\/mirror.touhidur.xyz\\/' + host + '\\/' + m;
+        txt = txt.replace(/(href|src)="[^#][^":]*"/g, m => {
           return 'https://mirror.touhidur.xyz/' + host + '/' + absolute(m);
         });
         data = new Response(txt, {

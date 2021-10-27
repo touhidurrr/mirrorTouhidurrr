@@ -65,17 +65,17 @@ async function handleRequest(req) {
       .text()
       .then(txt => {
         var hostEnd = host.split('.').slice(-2).join('.');
-        txt = txt.replace(/https?:\\?\/\\?\/(\w(\.|-|))+/g, m => {
-          if (m.includes(hostEnd)) {
-            if (m.includes('\\/'))
-              '\\/' + m.split('/').slice(-1)[0];
-            return '/' + m.split('/').slice(-1)[0];
-          } else return m;
-        });
         txt = txt.replace(/(href|src)="[^#][^":]*"/g, m => {
           const i = m.indexOf('"') + 1;
           if (m[i] == '/') return `${m.slice(0,i)}/${host}/${m.slice(i)}`;
           return `${m.slice(0,i)}/${host}/${absolute(m.slice(i))}`;
+        });
+        txt = txt.replace(/https?:\\?\/\\?\/(\w(\.|-|))+/g, m => {
+          if (m.includes(hostEnd)) {
+            if (m.includes('\\/'))
+              '\\/' + m.split(/\\?\//).slice(-1);
+            return '/' + m.split('/').slice(-1);
+          } else return m;
         });
         data = new Response(txt, {
           status: data.status,

@@ -11,10 +11,11 @@ async function handleRequest(req) {
     const { host, pathname } = new URL(req.url);
     let slices = pathname.split('/');
     while (!slices[0] || slices[0] == host) slices.shift();
+    const path = slices.join('/');
     return {
-      url: 'https://' + slices.join('/'),
+      path,
       host: slices.shift(),
-      path: slices.join('/')
+      url: 'https://' + path
     };
   })();
 

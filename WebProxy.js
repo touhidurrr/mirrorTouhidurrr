@@ -15,7 +15,7 @@ async function handleRequest(req) {
     return {
       path,
       host: slices.shift(),
-      url: 'https://' + path
+      url: 'https://' + path,
     };
   })();
 
@@ -48,38 +48,37 @@ async function handleRequest(req) {
   }
 
   if (b) {
-    var pathSplit = path.split('/');
-
     function absolute(rel) {
-      var st = pathSplit;
-      var arr = rel.split('/');
+      let st = path.split('/');
+      let arr = rel.split('/');
       st.pop();
-      for (var i = 0, l = arr.length; i < l; i++) {
-        if (arr[i] == '.') continue;
+      for (let i = 0, l = arr.length; i < l; i++) {
+        if (!arr[i] || arr[i] == '.') continue;
         if (arr[i] == '..') st.pop();
         else st.push(arr[i]);
       }
-      return st.filter(e => e).join('/');
+      return st.join('/');
     }
 
     await data
       .text()
       .then(txt => {
         var hostEnd = host.split('.').slice(-2).join('.');
-        txt = txt.replace(/(?<=(href|src)=")(?!https?:\\?\/\\?\/)[^"]*(?=")/g, m => {
-          let hashPart = '';
-          const hashIndex = m.indexOf('#');
-          if (hashIndex > -1) {
-            m = m.slice(0, hashIndex);
-            hashPart = m.slice(hashIndex);
+        txt = txt.replace(
+          /(?<=(href|src)=")(?!https?:\\?\/\\?\/)[^"]*(?=")/g,
+          m => {
+            let hashPart = '';
+            const hashIndex = m.indexOf('#');
+            if (hashIndex > -1) {
+              m = m.slice(0, hashIndex);
+              hashPart = m.slice(hashIndex);
+            }
+            return `/${host}/${absolute(m)}${hashPart}`;
           }
-          if (m.startsWith('/')) return '/' + host + hashPart;
-          return `/${host}/${absolute(m)}${hashPart}`;
-        });
+        );
         txt = txt.replace(/https?:\\?\/\\?\/(\w(\.|-|))+/g, m => {
           if (m.includes(hostEnd)) {
-            if (m.includes('\\/'))
-              return '\\/' + m.split(/\\?\//).slice(-1);
+            if (m.includes('\\/')) return '\\/' + m.split(/\\?\//).slice(-1);
             return '/' + m.split('/').slice(-1);
           } else return m;
         });

@@ -64,6 +64,16 @@ async function handleRequest(req) {
       .text()
       .then(txt => {
         var hostEnd = host.split('.').slice(-2).join('.');
+        // handles some rare cases
+        txt = txt.replace(/(?<=(href|src)=)(?!https?:\\?\/\\?\/)[^ :">]+/g, m => {
+          let hashPart = '';
+          const hashIndex = m.indexOf('#');
+          if (hashIndex > -1) {
+            m = m.slice(0, hashIndex);
+            hashPart = m.slice(hashIndex);
+          }
+          return `/${host}/${absolute(m)}${hashPart}`;
+        });
         txt = txt.replace(
           /(?<=(href|src)=")(?!https?:\\?\/\\?\/)[^:"]+/g,
           m => {

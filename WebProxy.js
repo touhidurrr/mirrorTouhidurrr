@@ -65,7 +65,7 @@ async function handleRequest(req) {
       .then(txt => {
         var hostEnd = host.split('.').slice(-2).join('.');
         txt = txt.replace(
-          /(?<=(href|src)="?)(?!https?:\\?\/\\?\/)[^: ">]+/g,
+          /(?<=(href|src)=")(?!https?:\\?\/\\?\/)[^:"]+/g,
           m => {
             let hashPart = '';
             const hashIndex = m.indexOf('#');

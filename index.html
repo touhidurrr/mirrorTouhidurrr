@@ -32,13 +32,12 @@
       }
     </style>
     <script>
-      mirror = 'https://mirror.touhidur.xyz/';
       function go() {
         url = document.getElementById('url').value;
         if (/^\s*https?:\/\//.test(url)) {
-          window.location.href = url.replace(/^\s*https?:\/\//, mirror);
+          window.location.href = url.replace(/^\s*https?:\/\//, window.location.hostname);
         } else if (url.includes('.')) {
-          window.location.href = mirror + url;
+          window.location.path = url;
         } else {
           document.getElementById('error').innerHTML =
             '<small>Unrecognized URL format!</small>';

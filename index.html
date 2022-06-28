@@ -37,7 +37,7 @@
         if (/^\s*https?:\/\//.test(url)) {
           location.href = url.replace(/^\s*https?:\/\//, `https://${location.host}/`);
         } else if (url.includes('.')) {
-          location.path = `https://${location.host}/${url}`;
+          location.href = `https://${location.host}/${url}`;
         } else {
           document.getElementById('error').innerHTML =
             '<small>Unrecognized URL format!</small>';

@@ -35,7 +35,7 @@
       function go() {
         url = document.getElementById('url').value;
         if (/^\s*https?:\/\//.test(url)) {
-          location.href = url.replace(/^\s*https?:\/\//, `https://${location.host}`);
+          location.href = url.replace(/^\s*https?:\/\//, `https://${location.host}/`);
         } else if (url.includes('.')) {
           location.path = `https://${location.host}/${url}`;
         } else {

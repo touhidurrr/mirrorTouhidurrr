@@ -35,9 +35,9 @@
       function go() {
         url = document.getElementById('url').value;
         if (/^\s*https?:\/\//.test(url)) {
-          window.location.href = url.replace(/^\s*https?:\/\//, window.location.hostname);
+          location.href = url.replace(/^\s*https?:\/\//, location.host);
         } else if (url.includes('.')) {
-          window.location.path = url;
+          location.path = `https://${location.host}/${url}`;
         } else {
           document.getElementById('error').innerHTML =
             '<small>Unrecognized URL format!</small>';

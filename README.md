@@ -21,4 +21,4 @@ Visit mirrored sites via your domain / subdomain! It routes traffic of the sites
 ## Note
 This project is a submission for the dev summer challenge of Cloudflare. So, pull requests will not be accepted until the event finishes. You may still pr, I might see them later.
 
-*Dev Summer Challenge has ended! So, accepting pr's now!*
+*Dev Summer Challenge has ended! So, accepting pr's now! Also I got one of the swag boxes they were offering for the event!!*

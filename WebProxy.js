@@ -1,4 +1,4 @@
-export default async function fetch(req) {
+async function fetch(req) {
   const { url, host, path } = (() => {
     const { host, pathname } = new URL(req.url);
     let slices = pathname.split('/');
@@ -95,3 +95,5 @@ export default async function fetch(req) {
 
   return data;
 }
+
+export default { fetch };

@@ -2,5 +2,5 @@
 rm LICENSE
 rm README.md
 rm -rf .??*
-rm *.js *.json
+rm *.json
 rm -rf scripts

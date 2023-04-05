@@ -11,8 +11,8 @@ async function fetch(req, env) {
     };
   })();
   
-  if (path in ['', '/'] || (^/\/?(js|images)\//).test(path))
-    return env.ASSETS.fetch(request);
+  if (path in ['', 'robots.txt'] || (^/\/?(js|images)\//).test(path))
+    return env.ASSETS.fetch(req);
 
   if (host.length < 3)
     return new Response('Request too Short!', { status: 404 });

@@ -1,4 +1,7 @@
 async function fetch(req, env) {
+  if (req.path in ['', '/', '/robots.txt'] || (/^\/?(js|images)\//).test(req.path))
+    return env.ASSETS.fetch(req);
+
   const { url, host, path } = (() => {
     const { host, pathname } = new URL(req.url);
     let slices = pathname.split('/');
@@ -10,9 +13,6 @@ async function fetch(req, env) {
       url: 'https://' + path,
     };
   })();
-  
-  if (path in ['', 'robots.txt'] || (/^(js|images)\//).test(path))
-    return env.ASSETS.fetch(req);
 
   if (host.length < 3)
     return new Response('Request too Short!', { status: 404 });

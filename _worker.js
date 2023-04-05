@@ -10,6 +10,9 @@ async function fetch(req, env) {
       url: 'https://' + path,
     };
   })();
+  
+  if (path in ['', '/'] || (^/\/?(js|images)\//).test(path))
+    return env.ASSETS.fetch(request);
 
   if (host.length < 3)
     return new Response('Request too Short!', { status: 404 });

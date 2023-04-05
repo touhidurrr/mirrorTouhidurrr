@@ -1,12 +1,4 @@
-addEventListener('fetch', event => {
-  event.respondWith(
-    handleRequest(event.request).catch(
-      err => new Response(err.stack, { status: 500 })
-    )
-  );
-});
-
-async function handleRequest(req) {
+export default async function fetch(req) {
   const { url, host, path } = (() => {
     const { host, pathname } = new URL(req.url);
     let slices = pathname.split('/');

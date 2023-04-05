@@ -1,4 +1,4 @@
-async function fetch(req) {
+async function fetch(req, env) {
   const { url, host, path } = (() => {
     const { host, pathname } = new URL(req.url);
     let slices = pathname.split('/');

@@ -1,6 +1,6 @@
 async function fetch(req, env) {
   const urlObj = new URL(req.url);
-  if (urlObj.pathname in ['/', '/robots.txt'] || (/^\/(js|images)\//).test(urlObj.pathname))
+  if (urlObj.pathname in ['', '/', '/robots.txt'] || (/^\/(js|images)\//).test(urlObj.pathname))
     return env.ASSETS.fetch(req);
   
   const { url, host, path } = (() => {

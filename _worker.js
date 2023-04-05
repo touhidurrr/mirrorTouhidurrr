@@ -11,7 +11,7 @@ async function fetch(req, env) {
     };
   })();
   
-  if (path in ['', 'robots.txt'] || (^/\/?(js|images)\//).test(path))
+  if (path in ['', 'robots.txt'] || (/^(js|images)\//).test(path))
     return env.ASSETS.fetch(req);
 
   if (host.length < 3)

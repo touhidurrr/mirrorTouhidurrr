@@ -13,6 +13,9 @@ Visit mirrored sites via your domain / subdomain! It routes traffic of the sites
 6. Completely Anonymous. No logging.
 7. Supports Ad-Blockers. Only changes links within the same base domain.
 
+## Build
+Simply fork the project and host it with Cloudflare Pages. It should work out of the box.
+
 ## Anti-Features
 1. WebApps and complex sites might break.
 2. Videos and Audios might not work.

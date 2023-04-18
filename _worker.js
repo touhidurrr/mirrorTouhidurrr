@@ -1,4 +1,4 @@
-async function fetch(req, env) {
+async function handleRequest(req, env) {
   const { host: originalHost, pathname: originalPath } = new URL(req.url);
   if ((['', '/', '/robots.txt']).includes(originalPath) || (/^\/(js|images)\//).test(originalPath))
     return env.ASSETS.fetch(req);
@@ -99,4 +99,4 @@ async function fetch(req, env) {
   return data;
 }
 
-export default { fetch };
+export default { fetch: handleRequest };

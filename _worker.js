@@ -1,12 +1,11 @@
 async function fetch(req, env) {
-  const urlObj = new URL(req.url);
-  if (urlObj.pathname in ['', '/', '/robots.txt'] || (/^\/(js|images)\//).test(urlObj.pathname))
+  const { host: originalHost, pathname: originalPath } = new URL(req.url);
+  if (originalPath in ['', '/', '/robots.txt'] || (/^\/(js|images)\//).test(originalPath))
     return env.ASSETS.fetch(req);
   
   const { url, host, path } = (() => {
-    const { host, pathname } = urlObj;
-    let slices = pathname.split('/');
-    while (!slices[0] || slices[0] == host) slices.shift();
+    let slices = originalPath.split('/');
+    while (!slices[0] || slices[0] == originalHost) slices.shift();
     const path = slices.join('/');
     return {
       path,

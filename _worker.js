@@ -1,8 +1,8 @@
 async function fetch(req, env) {
   const { host: originalHost, pathname: originalPath } = new URL(req.url);
-  if (originalPath in ['', '/', '/robots.txt'] || (/^\/(js|images)\//).test(originalPath))
+  if ((['', '/', '/robots.txt']).includes(originalPath) || (/^\/(js|images)\//).test(originalPath))
     return env.ASSETS.fetch(req);
-  
+
   const { url, host, path } = (() => {
     let slices = originalPath.split('/');
     while (!slices[0] || slices[0] == originalHost) slices.shift();

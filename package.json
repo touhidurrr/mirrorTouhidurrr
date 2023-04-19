@@ -1,6 +1,6 @@
 {
   "name": "mirrortouhidurrr",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A WebProxy built with Cloudflare Workers",
   "main": "WebProxy.js",
   "scripts": {

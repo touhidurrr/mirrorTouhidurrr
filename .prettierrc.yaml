@@ -8,3 +8,4 @@ arrowParens: 'avoid'
 trailingComma: 'es5'
 bracketSpacing: true
 quoteProps: 'as-needed'
+printWidth: 100

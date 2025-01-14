@@ -1,73 +1,140 @@
-<!DOCTYPE html>
-<html>
-  <head lang="en">
-    <title>mirrorTouhidurrr</title>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="touhidurrr" />
     <meta name="author" content="Md. Touhidur Rahman" />
-    <script src="js/three.min.js"></script>
-    <script src="js/vanta.net.min.js"></script>
+    <title>mirrorTouhidurrr</title>
     <style>
-      html,
+      @keyframes float {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
       body {
-        height: 100%;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #6b8dd6, #8f44fd);
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        color: white;
+        overflow: hidden;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 40px;
+        text-align: center;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(15px);
+        animation: float 3s infinite;
+        max-width: 400px;
         width: 100%;
-        margin: 0;
-        position: relative;
-        color: #1de9b6;
       }
-      button,
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        color: #ffcb05;
+        text-shadow: 2px 2px #ff6f00;
+      }
+
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+      }
+
       input {
-        padding: 2%;
-        margin: 0;
+        padding: 15px;
+        margin: 10px 0;
         border: none;
-        border-radius: 5px;
-        color: black;
+        border-radius: 25px;
+        width: 100%;
+        outline: none;
+        font-size: 1rem;
+        color: #ffcb05;
+        background: rgba(0, 0, 0, 0.5);
+        text-align: center;
+        box-shadow: 0 0 10px #ffcb05;
       }
-      input {
-        background: #afb42b;
-      }
+
       button {
-        background: #ff8f00;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 25px;
+        background: #ff6f00;
+        color: white;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        margin: 10px 10px;
+      }
+
+      button:hover {
+        background: #ff4500;
+      }
+
+      .github-link {
+        margin-top: 20px;
+      }
+
+      .github-link a {
+        font-size: 130%;
+        color: #1b2b2c;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .github-link img {
+        margin-right: 8px;
       }
     </style>
     <script>
       function go() {
-        url = document.getElementById('url').value;
-        if (/^\s*https?:\/\//.test(url)) {
-          location.href = url.replace(/^\s*https?:\/\//, `https://${location.host}/`);
-        } else if (url.includes('.')) {
-          location.href = `https://${location.host}/${url}`;
-        } else {
-          document.getElementById('error').innerHTML =
-            '<small>Unrecognized URL format!</small>';
+        try {
+          let urlInput = document.getElementById('url').value.trim();
+          if (!/^https?:\/\//i.test(urlInput) && urlInput.includes('.')) {
+            urlInput = 'https://' + urlInput;
+          }
+          const url = new URL(urlInput);
+          url.protocol = 'https';
+          url.pathname = url.pathname.replace('/', url.host + '/');
+          url.host = location.host;
+          location.href = url.href;
+        } catch {
+          document.getElementById('error').innerHTML = '<small>Unrecognized URL format!</small>';
         }
       }
     </script>
   </head>
-  <body align="center">
-    <br><br><br><br><br><br><br><br><br>
-    <h3>mirrorTouhidurrr</h3>
-    <h4>a WebProxy built with Cloudflare Workers</h4>
-    <table align="center">
-      <tr>
-        <input type="url" id="url" placeholder="https://example.com/" />&nbsp
-        <button onclick="go()">go</button>
-      </tr>
-      <tr style="color: lime" id="error"></tr>
-    </table><br>
-    <a style="font-size:130%; color:#0097A7;" href="https://github.com/touhidurrr/mirrorTouhidurrr"><img height="19" src="images/GitHub-Mark-Light-32px.png">&nbsp;Github</a>
-    <script>
-      VANTA.NET({
-        el: 'body',
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200.0,
-        minWidth: 200.0,
-        scale: 1.0,
-        scaleMobile: 1.0,
-      });
-    </script>
+  <body>
+    <div class="card">
+      <h1>Welcome to mirrorTouhidurrr</h1>
+      <p>Enter the URL you wish to visit:</p>
+      <div style="display: flex">
+        <input type="text" id="url" placeholder="https://example.com" />
+        <button onclick="go()">Go</button>
+      </div>
+
+      <p id="error" style="color: #e22f13"></p>
+      <div class="github-link">
+        <a href="https://github.com/touhidurrr/mirrorTouhidurrr">
+          <img height="19" src="images/GitHub-Mark-Light-32px.png" alt="GitHub Logo" />&nbsp;Github
+        </a>
+      </div>
+    </div>
   </body>
 </html>

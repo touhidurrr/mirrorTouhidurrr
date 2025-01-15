@@ -105,15 +105,14 @@
     <script>
       function go() {
         try {
-          let urlInput = document.getElementById('url').value.trim();
-          if (!/^https?:\/\//i.test(urlInput) && urlInput.includes('.')) {
-            urlInput = 'https://' + urlInput;
+          const urlInput = document.getElementById('url').value;
+          const url = new URL(urlInput, window.location.href);
+          url.protocol = 'https:';
+          if (url.host !== window.location.host) {
+            url.pathname = url.pathname.replace('/', url.host + '/');
+            url.host = window.location.host;
           }
-          const url = new URL(urlInput);
-          url.protocol = 'https';
-          url.pathname = url.pathname.replace('/', url.host + '/');
-          url.host = location.host;
-          location.href = url.href;
+          window.location.href = url.href;
         } catch {
           document.getElementById('error').innerHTML = '<small>Unrecognized URL format!</small>';
         }

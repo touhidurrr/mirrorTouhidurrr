@@ -1,0 +1,11 @@
+[run]
+bun = true
+
+[install]
+minimumReleaseAge = "3 days"
+
+[fmt]
+jsdoc = true
+trailingComma = "es5"
+sortPackageJson = true
+ignorePatterns = ["CODE_OF_CONDUCT.md"]
